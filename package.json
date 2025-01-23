@@ -4,9 +4,10 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
+    "clean": "rm -rf .aider.tags.cache.v3 dist data",
+    "clean:all": "rm -rf node_modules .aider.tags.cache.v3 content_cache dist data",
     "build": "tsup src/index.ts --format esm --dts",
     "start": "tsc && node --loader ts-node/esm src/index.ts",
-    "clean": "./scripts/clean.sh",
     "start:service:all": "pm2 start pnpm --name=\"all\" --restart-delay=3000 --max-restarts=10 -- run start:all",
     "stop:service:all": "pm2 stop all"
   },
@@ -23,7 +24,6 @@
     "@elizaos/plugin-image-generation": "0.1.7",
     "@elizaos/plugin-node": "0.1.7",
     "@elizaos/plugin-solana": "0.1.7",
-    "@elizaos/plugin-starknet": "0.1.7",
     "@tavily/core": "0.0.2",
     "amqplib": "0.10.5",
     "better-sqlite3": "11.5.0",
