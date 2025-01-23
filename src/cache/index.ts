@@ -1,3 +1,5 @@
+// src/cache/index.ts
+
 import { CacheManager, Character, DbCacheAdapter, IDatabaseCacheAdapter } from '@elizaos/core';
 
 export function initializeDbCache(character: Character, db: IDatabaseCacheAdapter) {

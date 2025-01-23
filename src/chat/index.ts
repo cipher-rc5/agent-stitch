@@ -1,51 +1,43 @@
-import { settings } from "@elizaos/core";
-import readline from "readline";
+// src/chat/index.ts
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+import { settings } from '@elizaos/core';
+import readline from 'readline';
 
-rl.on("SIGINT", () => {
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+
+rl.on('SIGINT', () => {
   rl.close();
   process.exit(0);
 });
 
-async function handleUserInput(input, agentId) {
-  if (input.toLowerCase() === "exit") {
+async function handleUserInput(input: string, agentId: any) {
+  if (input.toLowerCase() === 'exit') {
     rl.close();
     process.exit(0);
   }
 
   try {
-    const serverPort = parseInt(settings.SERVER_PORT || "3000");
+    const serverPort = parseInt(settings.SERVER_PORT || '3000');
 
-    const response = await fetch(
-      `http://localhost:${serverPort}/${agentId}/message`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text: input,
-          userId: "user",
-          userName: "User",
-        }),
-      }
-    );
+    const response = await fetch(`http://localhost:${serverPort}/${agentId}/message`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: input, userId: 'user', userName: 'User' })
+    });
 
     const data = await response.json();
-    data.forEach((message) => console.log(`${"Agent"}: ${message.text}`));
+    data.forEach((message: { text: any }) => console.log(`${'Agent'}: ${message.text}`));
   } catch (error) {
-    console.error("Error fetching response:", error);
+    console.error('Error fetching response:', error);
   }
 }
 
-export function startChat(characters) {
+export function startChat(characters: { name: string }[]) {
   function chat() {
-    const agentId = characters[0].name ?? "Agent";
-    rl.question("You: ", async (input) => {
+    const agentId = characters[0].name ?? 'Agent';
+    rl.question('You: ', async (input) => {
       await handleUserInput(input, agentId);
-      if (input.toLowerCase() !== "exit") {
+      if (input.toLowerCase() !== 'exit') {
         chat(); // Loop back to ask another question
       }
     });

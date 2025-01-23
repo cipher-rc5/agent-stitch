@@ -1,3 +1,5 @@
+// src/index.ts
+
 import { DirectClient } from '@elizaos/client-direct';
 import { AgentRuntime, type Character, elizaLogger, settings, stringToUuid } from '@elizaos/core';
 import { bootstrapPlugin } from '@elizaos/plugin-bootstrap';
@@ -71,7 +73,6 @@ async function startAgent(character: Character, directClient: DirectClient) {
 
     directClient.registerAgent(runtime);
 
-    // report to console
     elizaLogger.debug(`Started ${character.name} as ${runtime.agentId}`);
 
     return runtime;
@@ -127,9 +128,7 @@ const startAgents = async () => {
     serverPort++;
   }
 
-  // upload some agent functionality into directClient
   directClient.startAgent = async (character: Character) => {
-    // wrap it so we don't have to inject directClient later
     return startAgent(character, directClient);
   };
 
