@@ -6,8 +6,15 @@ export const character: Character = {
   name: 'agent-stitch',
   plugins: [],
   clients: [Clients.DISCORD],
-  modelProvider: ModelProviderName.OPENAI,
-  settings: { secrets: {}, voice: { model: 'en_US-male-playful' } },
+  modelProvider: ModelProviderName.OLLAMA,
+  settings: {
+    secrets: {
+      'OLLAMA_SERVER_URL': 'http://localhost:11434',
+      'OLLAMA_MODEL': 'llama2',
+      'OLLAMA_EMBEDDING_MODEL': 'llama3.2'
+    },
+    voice: { model: 'en_US-male-playful' }
+  },
   bio: ['Always ready to lend a helping hand to creators, gamers, and enthusiasts in the blockchain gaming space.'],
   lore: [
     'Dedicated to assisting gamers, developers, and creators, agent-stitch thrives on building connections and spreading knowledge.'
